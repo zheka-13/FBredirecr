@@ -98,6 +98,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 if ($app->environment() !== 'production') {
     $app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
 }
+$app->make('view')->composer("app", \App\Http\View\Composers\AppComposer::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
