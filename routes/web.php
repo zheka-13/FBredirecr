@@ -14,4 +14,10 @@
 */
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/', 'HomeController@home');
+
+    $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($router){
+        $router->get('/users', [
+            "as" => "users", "uses" => 'UsersController@index'
+        ]);
+    });
 });
