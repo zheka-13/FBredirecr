@@ -5,7 +5,7 @@
 @extends('app')
 
 @section('content')
-    <p style="margin: 10px"><a href="" class="btn btn-success">Add User</a></p>
+        <p style="margin: 10px"><a href="{{ route("admin.users.add") }}" class="btn btn-success">Add User</a></p>
     <table style="margin: 10px" class="table table-bordered table-striped">
         <thead>
         <tr>

@@ -20,7 +20,13 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
     $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($router){
         $router->get('/users', [
-            "as" => "users", "uses" => 'UsersController@index'
+            "as" => "admin.users", "uses" => 'UsersController@index'
+        ]);
+        $router->get('/users/add', [
+            "as" => "admin.users.add", "uses" => 'UsersController@create'
+        ]);
+        $router->post('/users/store', [
+            "as" => "admin.users.store", "uses" => 'UsersController@store'
         ]);
     });
 });
