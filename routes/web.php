@@ -1,6 +1,6 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/** @var Router $router */
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +12,9 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+
+use Laravel\Lumen\Routing\Router;
+
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/', 'HomeController@home');
 
