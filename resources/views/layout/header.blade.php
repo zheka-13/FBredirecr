@@ -8,7 +8,7 @@
 
             </div>
             <div class="col-2">
-                Hello {{ $user->name }}
+                <p style="margin-top:10px ">Hello {{ $user->name }}({{ $user->email }})
             </div>
         </div>
     </div>
