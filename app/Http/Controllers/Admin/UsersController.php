@@ -88,4 +88,5 @@ class UsersController extends Controller
             ->setPassword($request->input('password', "") ?? "")
             ->setName($request->input("name", "") ?? "");
     }
+
 }

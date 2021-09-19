@@ -8,7 +8,8 @@
 
             </div>
             <div class="col-2">
-                <p style="margin-top:10px ">Hello {{ $user->name }}({{ $user->email }})
+                <p style="margin-top:10px ">Hello {{ $user->name }}({{ $user->email }}) <a href="{{ route('logout') }}" >Logout</a></p>
+
             </div>
         </div>
     </div>

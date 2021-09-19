@@ -3,6 +3,7 @@
 namespace App\Entities\User;
 
 use App\Entities\User\Exceptions\UserEntityException;
+use App\Models\User;
 use Illuminate\Database\DatabaseManager;
 use stdClass;
 
@@ -30,6 +31,25 @@ class UserStorage
         return $this->db->table("users")
             ->where("email", "=", $email)
             ->exists();
+    }
+
+    /**
+     * @param string $email
+     * @param string $password
+     * @return User|null
+     */
+    public function login(string $email, string $password): ?User
+    {
+        $user = $this->db->table("users")
+            ->where("email", "=", $email)
+            ->first();
+        if (empty($user)){
+            return null;
+        }
+        if (password_verify($password, $user->password)) {
+            return new User((array)$user);
+        }
+        return null;
     }
 
     /**

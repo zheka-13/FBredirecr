@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <a href="{{ route("admin.users") }}" class="btn btn-success">Back</a>
+                    <a href="{{ route("admin.users") }}" class="btn btn-success">Back to list</a>
                 </div>
             </form>
         </div>

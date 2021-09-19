@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class HomeController extends Controller
 {
@@ -20,5 +21,10 @@ class HomeController extends Controller
     public function home()
     {
         return view('home', ['title' => 'Home']);
+    }
+
+    public function logout()
+    {
+        return new Response("Unauthorized", ResponseAlias::HTTP_UNAUTHORIZED);
     }
 }
