@@ -38,8 +38,33 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
             "as" => "admin.users.delete", "uses" => 'UsersController@delete'
         ]);
     });
+
+    $router->group(['namespace' => 'User', 'prefix' => 'user'], function () use ($router){
+        $router->get('/links', [
+            "as" => "user.links", "uses" => 'LinksController@index'
+        ]);
+        $router->get('/links/add', [
+            "as" => "user.links.add", "uses" => 'LinksController@create'
+        ]);
+        $router->post('/links/store', [
+            "as" => "user.links.store", "uses" => 'LinksController@store'
+        ]);
+        $router->post('/links/{link_id}/update', [
+            "as" => "user.links.update", "uses" => 'LinksController@update'
+        ]);
+        $router->get('/links/{link_id}/edit', [
+            "as" => "user.links.edit", "uses" => 'LinksController@edit'
+        ]);
+        $router->post('/users/{user_id}/delete', [
+            "as" => "user.links.delete", "uses" => 'LinksController@delete'
+        ]);
+    });
 });
 
 $router->get('/logout', [
     "as" => "logout", "uses" => 'HomeController@logout'
+]);
+
+$router->get('/redirect/{hash}', [
+    "as" => "redirect", "uses" => 'HomeController@home'
 ]);

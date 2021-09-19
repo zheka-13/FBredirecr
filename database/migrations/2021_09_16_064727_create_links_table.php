@@ -19,7 +19,6 @@ class CreateLinksTable extends Migration
             $table->string("name")->nullable();
             $table->string("link")->nullable(false);
             $table->string("hash")->nullable();
-            $table->string("image_file")->nullable(false);
             $table->string("header")->nullable();
             $table->foreign("user_id")->references("id")->on("users")->cascadeOnDelete();
             $table->index("hash");
