@@ -103,6 +103,17 @@ class UserStorage
     }
 
     /**
+     * @param int $user_id
+     */
+    public function delete(int $user_id)
+    {
+        $this->db
+            ->table("users")
+            ->where("id", "=", $user_id)
+            ->delete();
+    }
+
+    /**
      * @param stdClass $row
      * @return UserEntity
      * @throws UserEntityException

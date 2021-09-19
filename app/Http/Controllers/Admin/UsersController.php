@@ -7,6 +7,7 @@ use App\Entities\User\Exceptions\UserEntityException;
 use App\Entities\User\Exceptions\UserNotFoundException;
 use App\Entities\User\UserEntity;
 use App\Entities\User\UserService;
+use App\Entities\User\UserStorage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -107,6 +108,17 @@ class UsersController extends Controller
             ->setPassword($request->input('password', "") ?? "")
             ->setName($request->input("name", "") ?? "");
         $this->userService->updateUser($user);
+        return redirect(route('admin.users'));
+    }
+
+    /**
+     * @param UserStorage $userStorage
+     * @param int $user_id
+     * @return RedirectResponse
+     */
+    public function delete(UserStorage $userStorage, int $user_id): RedirectResponse
+    {
+        $userStorage->delete($user_id);
         return redirect(route('admin.users'));
     }
 
