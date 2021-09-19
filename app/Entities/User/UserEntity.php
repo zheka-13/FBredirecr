@@ -104,15 +104,9 @@ class UserEntity
     /**
      * @param string $password
      * @return UserEntity
-     * @throws UserEntityException
      */
     public function setPassword(string $password): UserEntity
     {
-        if (empty($password)) {
-            throw  new UserEntityException(
-                "User password cannot be empty"
-            );
-        }
         $this->password = $password;
         return $this;
     }
@@ -125,6 +119,19 @@ class UserEntity
     {
         $this->is_admin = $is_admin;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function asArray(): array
+    {
+        return [
+            "id" => $this->id,
+            "name" => $this->name,
+            "email" => $this->email,
+            "is_admin" => $this->is_admin
+        ];
     }
 
 }

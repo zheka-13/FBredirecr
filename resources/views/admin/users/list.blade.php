@@ -20,7 +20,7 @@
         @foreach ($users as $user)
             <tr>
                 <td>{{ $user->getId() }}</td>
-                <td><a href="">{{ $user->getName() }}</a></td>
+                <td><a href="{{ route("admin.users.edit", ["user_id" => $user->getId()]) }}">{{ $user->getName() }}</a></td>
                 <td>{{ $user->getEmail() }}</td>
                 <td>
                     @if ($user->isIsAdmin())

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Entities\User\Exceptions\UserAlreadyExistsException;
 use App\Entities\User\Exceptions\UserEntityException;
+use App\Entities\User\Exceptions\UserNotFoundException;
 use App\Entities\User\UserEntity;
 use App\Entities\User\UserService;
 use App\Http\Controllers\Controller;
@@ -43,6 +44,23 @@ class UsersController extends Controller
     }
 
     /**
+     * @param int $user_id
+     * @return View
+     * @throws UserEntityException
+     */
+    public function edit(int $user_id): View
+    {
+        try{
+            $user = $this->userService->getUser($user_id);
+            return view('admin.users.edit', ['title' => 'Edit', "user" => $user]);
+        }
+        catch(UserNotFoundException $e){
+            return view('error', ['title' => 'Error', "error" => "User not found"]);
+        }
+
+    }
+
+    /**
      * @param Request $request
      * @return RedirectResponse|View
      * @throws UserEntityException
@@ -72,6 +90,23 @@ class UsersController extends Controller
             ];
             return view('admin.users.create', ['title' => 'Create'])->with("errors", $errors);
         }
+        return redirect(route('admin.users'));
+    }
+
+    /**
+     * @param Request $request
+     * @param int $user_id
+     * @return RedirectResponse
+     * @throws UserEntityException
+     * @throws UserNotFoundException
+     */
+    public function update(Request $request, int $user_id): RedirectResponse
+    {
+        $user = $this->userService->getUser($user_id);
+        $user->setIsAdmin($request->has("is_admin"))
+            ->setPassword($request->input('password', "") ?? "")
+            ->setName($request->input("name", "") ?? "");
+        $this->userService->updateUser($user);
         return redirect(route('admin.users'));
     }
 

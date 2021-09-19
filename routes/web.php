@@ -28,6 +28,15 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
         $router->post('/users/store', [
             "as" => "admin.users.store", "uses" => 'UsersController@store'
         ]);
+        $router->post('/users/{user_id}/update', [
+            "as" => "admin.users.update", "uses" => 'UsersController@update'
+        ]);
+        $router->get('/users/{user_id}/edit', [
+            "as" => "admin.users.edit", "uses" => 'UsersController@edit'
+        ]);
+        $router->post('/users/{user_id}/delete', [
+            "as" => "admin.users.delete", "uses" => 'UsersController@delete'
+        ]);
     });
 });
 

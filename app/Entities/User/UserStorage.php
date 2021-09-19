@@ -3,7 +3,7 @@
 namespace App\Entities\User;
 
 use App\Entities\User\Exceptions\UserEntityException;
-use App\Models\User;
+use App\Entities\User\Exceptions\UserNotFoundException;
 use Illuminate\Database\DatabaseManager;
 use stdClass;
 
@@ -26,7 +26,7 @@ class UserStorage
      * @param string $email
      * @return bool
      */
-    public function email_exists(string $email): bool
+    public function emailExists(string $email): bool
     {
         return $this->db->table("users")
             ->where("email", "=", $email)
@@ -35,28 +35,26 @@ class UserStorage
 
     /**
      * @param string $email
-     * @param string $password
-     * @return User|null
+     * @return UserEntity
+     * @throws UserEntityException
+     * @throws UserNotFoundException
      */
-    public function login(string $email, string $password): ?User
+    public function getUserByEmail(string $email): UserEntity
     {
-        $user = $this->db->table("users")
+        $data = $this->db->table("users")
             ->where("email", "=", $email)
             ->first();
-        if (empty($user)){
-            return null;
+        if (empty($data)){
+            throw new UserNotFoundException();
         }
-        if (password_verify($password, $user->password)) {
-            return new User((array)$user);
-        }
-        return null;
+        return $this->makeUserEntity($data);
     }
 
     /**
      * @return UserEntity[]
      * @throws UserEntityException
      */
-    public function get_users(): array
+    public function getUsers(): array
     {
         $data = $this->db->table("users")->get();
         $users = [];
@@ -67,14 +65,41 @@ class UserStorage
     }
 
     /**
+     * @param int $user_id
+     * @return UserEntity
+     * @throws UserEntityException
+     * @throws UserNotFoundException
+     */
+    public function getUser(int $user_id): UserEntity
+    {
+        $data = $this->db->table("users")
+            ->where("id", "=", $user_id)
+            ->first();
+        if (empty($data)){
+            throw new UserNotFoundException();
+        }
+        return $this->makeUserEntity($data);
+    }
+
+    /**
      * @param UserEntity $user
      */
     public function store(UserEntity $user)
     {
         $data = $this->getDataForInsert($user);
-        $this->db->table("users")->insert(
-            $data
-        );
+        $this->db->table("users")->insert($data);
+    }
+
+    /**
+     * @param UserEntity $user
+     */
+    public function update(UserEntity $user)
+    {
+        $data = $this->getDataForUpdate($user);
+        $this->db
+            ->table("users")
+            ->where("id", "=", $user->getId())
+            ->update($data);
     }
 
     /**
@@ -88,6 +113,7 @@ class UserStorage
         return $user
             ->setId($row->id)
             ->setName($row->name)
+            ->setPassword($row->password)
             ->setIsAdmin((bool)$row->is_admin);
     }
 
@@ -102,6 +128,21 @@ class UserStorage
         $data['email'] = $user->getEmail();
         $data['is_admin'] = $user->isIsAdmin();
         $data['password'] = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+        return $data;
+    }
+
+    /**
+     * @param UserEntity $user
+     * @return array
+     */
+    private function getDataForUpdate(UserEntity $user): array
+    {
+        $data = [];
+        $data['name'] = $user->getName();
+        $data['is_admin'] = $user->isIsAdmin();
+        if (!empty($user->getPassword())){
+            $data['password'] = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+        }
         return $data;
     }
 }
