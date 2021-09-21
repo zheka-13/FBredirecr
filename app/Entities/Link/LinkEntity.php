@@ -35,6 +35,11 @@ class LinkEntity
     private $header = "";
 
     /**
+     * @var string
+     */
+    private $exception = "";
+
+    /**
      * @var bool
      */
     private $has_picture = false;
@@ -98,6 +103,14 @@ class LinkEntity
     }
 
     /**
+     * @return string
+     */
+    public function getExtension(): string
+    {
+        return $this->exception;
+    }
+
+    /**
      * @param string $name
      * @return LinkEntity
      */
@@ -134,6 +147,16 @@ class LinkEntity
     public function setHeader(string $header): LinkEntity
     {
         $this->header = $header;
+        return $this;
+    }
+
+    /**
+     * @param string $extension
+     * @return LinkEntity
+     */
+    public function setExtension(string $extension): LinkEntity
+    {
+        $this->exception = $extension;
         return $this;
     }
 

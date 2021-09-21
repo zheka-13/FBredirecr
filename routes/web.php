@@ -55,7 +55,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
         $router->get('/links/{link_id}/edit', [
             "as" => "user.links.edit", "uses" => 'LinksController@edit'
         ]);
-        $router->post('/users/{user_id}/delete', [
+        $router->post('/links/{link_id}/delete', [
             "as" => "user.links.delete", "uses" => 'LinksController@delete'
         ]);
     });

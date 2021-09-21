@@ -21,8 +21,8 @@
         @foreach ($links as $link)
             <tr>
                 <td><a href="{{ route("user.links.edit", ["link_id" => $link->getId()]) }}">{{ empty($link->getName()) ? 'noname' : $link->getName() }}</a></td>
-                <td><a href="{{ $link->getLink() }}">{{ $link->getLinkName() }}</a></td>
-                <td><a href="{{ $link->getFBLink() }}">FB link</a></td>
+                <td><a href="{{ $link->getLink() }}" target="_blank">{{ $link->getLinkName() }}</a></td>
+                <td><a href="{{ $link->getFBLink() }}" target="_blank">FB link</a></td>
                 <td>{{ $link->getSubstrHeader() }}</td>
                 <td>
                     @if ($link->hasPicture())
