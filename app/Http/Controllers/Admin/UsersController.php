@@ -7,7 +7,6 @@ use App\Entities\User\Exceptions\UserEntityException;
 use App\Entities\User\Exceptions\UserNotFoundException;
 use App\Entities\User\UserEntity;
 use App\Entities\User\UserService;
-use App\Entities\User\UserStorage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -58,7 +57,6 @@ class UsersController extends Controller
         catch(UserNotFoundException $e){
             return view('error', ['title' => 'Error', "error" => "User not found"]);
         }
-
     }
 
     /**
@@ -112,13 +110,15 @@ class UsersController extends Controller
     }
 
     /**
-     * @param UserStorage $userStorage
+     * @param UserService $userService
      * @param int $user_id
      * @return RedirectResponse
+     * @throws UserEntityException
+     * @throws UserNotFoundException
      */
-    public function delete(UserStorage $userStorage, int $user_id): RedirectResponse
+    public function delete(UserService $userService, int $user_id): RedirectResponse
     {
-        $userStorage->delete($user_id);
+        $userService->deleteUser($user_id);
         return redirect(route('admin.users'));
     }
 

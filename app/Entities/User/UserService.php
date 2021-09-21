@@ -5,6 +5,7 @@ namespace App\Entities\User;
 use App\Entities\User\Exceptions\UserAlreadyExistsException;
 use App\Entities\User\Exceptions\UserEntityException;
 use App\Entities\User\Exceptions\UserNotFoundException;
+use App\Events\UserDeletedEvent;
 use App\Models\User;
 
 class UserService
@@ -81,5 +82,17 @@ class UserService
     public function updateUser(UserEntity $user)
     {
         $this->userStorage->update($user);
+    }
+
+    /**
+     * @param int $user_id
+     * @throws UserEntityException
+     * @throws UserNotFoundException
+     */
+    public function deleteUser(int $user_id)
+    {
+        $user = $this->getUser($user_id);
+        $this->userStorage->delete($user_id);
+        event(new UserDeletedEvent($user));
     }
 }
