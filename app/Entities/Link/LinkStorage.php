@@ -56,6 +56,22 @@ class LinkStorage
     }
 
     /**
+     * @param string $hash
+     * @return LinkEntity
+     * @throws LinkNotFoundException
+     */
+    public function getLinkByHash(string $hash): LinkEntity
+    {
+        $data = $this->db->table("links")
+            ->where("hash", "=", $hash)
+            ->first();
+        if (empty($data)){
+            throw new LinkNotFoundException();
+        }
+        return $this->makeLinkEntity($data);
+    }
+
+    /**
      * @param LinkEntity $link
      */
     public function store(LinkEntity $link)

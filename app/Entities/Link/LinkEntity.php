@@ -105,7 +105,7 @@ class LinkEntity
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getPictureUrl(): string
     {
         return '/user/img/'.$this->hash.".".$this->extension;
     }

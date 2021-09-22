@@ -75,5 +75,5 @@ $router->get('/logout', [
 ]);
 
 $router->get('/redirect/{hash}', [
-    "as" => "redirect", "uses" => 'HomeController@home'
+    "as" => "redirect", "uses" => 'RedirectController@redirect'
 ]);
