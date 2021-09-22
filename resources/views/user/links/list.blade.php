@@ -26,10 +26,11 @@
                 <td>{{ $link->getSubstrHeader() }}</td>
                 <td>
                     @if ($link->hasPicture())
-                        <span class="badge badge-success">Has picture</span>
+                        <span class="badge badge-success">Has picture .{{ $link->getExtension() }}</span>
                     @else
                         <span class="badge badge-danger">No picture</span>
                     @endif
+                        <a href="{{ route("user.links.edit_picture", ["link_id" => $link->getId()]) }}" >[edit]</a>
                 </td>
             </tr>
         @endforeach

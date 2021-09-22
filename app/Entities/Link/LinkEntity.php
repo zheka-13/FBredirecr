@@ -37,7 +37,7 @@ class LinkEntity
     /**
      * @var string
      */
-    private $exception = "";
+    private $extension = "";
 
     /**
      * @var bool
@@ -105,9 +105,17 @@ class LinkEntity
     /**
      * @return string
      */
+    public function getUrl(): string
+    {
+        return '/user/img/'.$this->hash.".".$this->extension;
+    }
+
+    /**
+     * @return string
+     */
     public function getExtension(): string
     {
-        return $this->exception;
+        return $this->extension;
     }
 
     /**
@@ -156,7 +164,17 @@ class LinkEntity
      */
     public function setExtension(string $extension): LinkEntity
     {
-        $this->exception = $extension;
+        $this->extension = $extension;
+        return $this;
+    }
+
+    /**
+     * @param bool $has_picture
+     * @return LinkEntity
+     */
+    public function setHasPicture(bool $has_picture): LinkEntity
+    {
+        $this->has_picture = $has_picture;
         return $this;
     }
 
@@ -168,16 +186,25 @@ class LinkEntity
         return substr($this->link, 0, 20).(strlen($this->link)>20 ? "..." : "");
     }
 
+    /**
+     * @return string
+     */
     public function getFBLink(): string
     {
         return route('redirect', ['hash' => $this->hash]);
     }
 
+    /**
+     * @return string
+     */
     public function getSubstrHeader(): string
     {
         return mb_substr($this->header, 0, 20).(mb_strlen($this->header)>20 ? "..." : "");
     }
 
+    /**
+     * @return bool
+     */
     public function hasPicture():bool
     {
         return $this->has_picture;

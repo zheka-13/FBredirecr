@@ -8,15 +8,7 @@
         <div class="col-2">
         </div>
         <div class="col-8">
-            @if (!empty($errors))
-                <div style='margin-top: 10px' class="alert alert-danger" role="alert">
-                    @foreach ($errors as $field => $field_errors)
-                        @foreach ($field_errors as $error)
-                            <p><strong>{{ $field }}</strong>: {{ $error }}</p>
-                        @endforeach
-                    @endforeach
-                </div>
-            @endif
+            @include("partials.form_errors")
             <form method="POST" action="{{ route('user.links.update', ["link_id" => $link->getId()]) }}">
 
                 <div class="form-group">
@@ -39,7 +31,7 @@
                     <a href="{{ route("user.links") }}" class="btn btn-success">Back to list</a>
                 </div>
             </form>
-            <form method="POST" action="{{ route('user.links.delete', ["link" => $link->getId()]) }}">
+            <form method="POST" action="{{ route('user.links.delete', ["link_id" => $link->getId()]) }}">
                 <div class="form-group text-right">
                     <button type="submit" class="btn btn-danger">Delete link</button>
                 </div>

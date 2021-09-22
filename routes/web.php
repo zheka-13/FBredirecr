@@ -55,8 +55,17 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
         $router->get('/links/{link_id}/edit', [
             "as" => "user.links.edit", "uses" => 'LinksController@edit'
         ]);
+        $router->get('/links/{link_id}/edit_picture', [
+            "as" => "user.links.edit_picture", "uses" => 'LinksController@edit_picture'
+        ]);
+        $router->post('/links/{link_id}/store_picture', [
+            "as" => "user.links.store_picture", "uses" => 'LinksController@store_picture'
+        ]);
         $router->post('/links/{link_id}/delete', [
             "as" => "user.links.delete", "uses" => 'LinksController@delete'
+        ]);
+        $router->get('/img/{file}', [
+            "as" => "user.links.img", "uses" => 'LinksController@img'
         ]);
     });
 });

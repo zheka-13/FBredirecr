@@ -3,6 +3,7 @@
 namespace App\Entities\Link;
 
 use App\Entities\Link\Exceptions\LinkNotFoundException;
+use Illuminate\Http\UploadedFile;
 
 class LinkService
 {
@@ -30,7 +31,11 @@ class LinkService
      */
     public function getLinks(int $user_id): array
     {
-        return $this->linkStorage->getLinks($user_id);
+        $links = $this->linkStorage->getLinks($user_id);
+        foreach ($links as $link){
+            $link->setHasPicture($this->linksFileStorage->pictureExists($link));
+        }
+        return  $links;
     }
 
     /**
@@ -61,6 +66,18 @@ class LinkService
     }
 
     /**
+     * @param LinkEntity $link
+     * @param UploadedFile $file
+     */
+    public function uploadLinkFile(LinkEntity $link, UploadedFile $file)
+    {
+        $this->linksFileStorage->deletePicture($link);
+        $link->setExtension($file->getClientOriginalExtension());
+        $this->linksFileStorage->storeFile($link, $file);
+        $this->linkStorage->updateExtension($link);
+    }
+
+    /**
      * @param int $link_id
      * @param int $user_id
      * @throws LinkNotFoundException
@@ -68,6 +85,7 @@ class LinkService
     public function delete(int $link_id, int $user_id)
     {
         $link = $this->getLink($link_id, $user_id);
+        $this->linksFileStorage->deletePicture($link);
         $this->linkStorage->delete($link);
 
     }

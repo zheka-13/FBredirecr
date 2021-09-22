@@ -110,15 +110,14 @@ class UsersController extends Controller
     }
 
     /**
-     * @param UserService $userService
      * @param int $user_id
      * @return RedirectResponse
      * @throws UserEntityException
      * @throws UserNotFoundException
      */
-    public function delete(UserService $userService, int $user_id): RedirectResponse
+    public function delete(int $user_id): RedirectResponse
     {
-        $userService->deleteUser($user_id);
+        $this->userService->deleteUser($user_id);
         return redirect(route('admin.users'));
     }
 

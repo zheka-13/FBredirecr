@@ -80,6 +80,20 @@ class LinkStorage
     /**
      * @param LinkEntity $link
      */
+    public function updateExtension(LinkEntity $link)
+    {
+        $this->db
+            ->table("links")
+            ->where("id", "=", $link->getId())
+            ->where("user_id", "=", $link->getUserId())
+            ->update([
+                "extension" => $link->getExtension()
+            ]);
+    }
+
+    /**
+     * @param LinkEntity $link
+     */
     public function delete(LinkEntity $link)
     {
         $this->db
@@ -98,11 +112,11 @@ class LinkStorage
     {
         $link = new LinkEntity($row->id, $row->user_id);
         return $link
-            ->setName($row->name)
-            ->setLink($row->link)
-            ->setHash($row->hash)
-            ->setExtension($row->extension)
-            ->setHeader($row->header);
+            ->setName($row->name ?? "")
+            ->setLink($row->link ?? "")
+            ->setHash($row->hash ?? "")
+            ->setExtension($row->extension ?? "")
+            ->setHeader($row->header ?? "");
 
     }
 

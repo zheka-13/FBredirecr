@@ -6,15 +6,7 @@
         <div class="col-2">
         </div>
         <div class="col-8">
-            @if (!empty($errors))
-                <div style='margin-top: 10px' class="alert alert-danger" role="alert">
-                    @foreach ($errors as $field => $field_errors)
-                        @foreach ($field_errors as $error)
-                            <p><strong>{{ $field }}</strong>: {{ $error }}</p>
-                        @endforeach
-                    @endforeach
-                </div>
-            @endif
+            @include("partials.form_errors")
             <form method="POST" action="{{ route('user.links.store') }}">
 
                 <div class="form-group">
@@ -33,7 +25,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="is_admin" class="col-form-label">You will be able to add picture later.</label>
+                    <label class="col-form-label">You will be able to add picture later.</label>
                 </div>
 
                 <div class="form-group">
