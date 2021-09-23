@@ -4,8 +4,8 @@ namespace App\Entities\Link;
 
 
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\UploadedFile;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class LinksFileStorage
 {
@@ -48,7 +48,7 @@ class LinksFileStorage
         if ($this->pictureExists($linkEntity)){
             $this->deletePicture($linkEntity);
         }
-        $this->disk->putFileAs("/".$linkEntity->getUserId(), $file, $linkEntity->getHash().".".$linkEntity->getExtension());
+        $this->disk->putFileAs("/".$linkEntity->getUserId(), $file, $linkEntity->getHash());
     }
 
     /**
@@ -59,13 +59,13 @@ class LinksFileStorage
     }
 
     /**
-     * @param string $file
-     * @param int $user_id
-     * @return StreamedResponse
+     * @param LinkEntity $linkEntity
+     * @return string
+     * @throws FileNotFoundException
      */
-    public function image(string $file, int $user_id): StreamedResponse
+    public function image(LinkEntity $linkEntity): string
     {
-        return $this->disk->download("/".$user_id."/".$file);
+        return $this->disk->get($this->picturePath($linkEntity));
     }
 
     /**
@@ -74,6 +74,6 @@ class LinksFileStorage
      */
     private function picturePath(LinkEntity $linkEntity): string
     {
-        return "/".$linkEntity->getUserId()."/".$linkEntity->getHash().".".$linkEntity->getExtension();
+        return "/".$linkEntity->getUserId()."/".$linkEntity->getHash();
     }
 }

@@ -11,7 +11,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class LinksController extends Controller
 {
@@ -114,16 +113,7 @@ class LinksController extends Controller
         }
     }
 
-    /**
-     * @param Request $request
-     * @param LinksFileStorage $linksFileStorage
-     * @param string $file
-     * @return StreamedResponse
-     */
-    public function img(Request $request, LinksFileStorage $linksFileStorage, string $file): StreamedResponse
-    {
-        return $linksFileStorage->image($file, $request->user()->id);
-    }
+
 
     /**
      * @param Request $request

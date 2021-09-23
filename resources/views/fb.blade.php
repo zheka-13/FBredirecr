@@ -18,7 +18,7 @@
 
 
     <script type="text/javascript">
-        var site_url = 'https://grikad.com'
+        var site_url = '{{ $host }}'
 
         function getCookie(name) {
             var matches = document.cookie.match(new RegExp(
@@ -80,7 +80,7 @@
         var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
         eventer(messageEvent, function (e) {
             console.log(e.origin);
-            if(e.origin == 'https://grikad.com' || e.origin == 'https://grikad.com'){
+            if(e.origin == '{{ $host }}' || e.origin == '{{ $host }}'){
                 if(e.data == 'liked'){
                     is_fan = true;
                     is_logged_in = 1;
@@ -100,18 +100,18 @@
     <meta name="twitter:card" content="photo" />
     <meta name="twitter:site" content="{{ $link->getLink() }}" />
     <meta name="twitter:title" content="&nbsp;" />
-    <meta name="twitter:image" content="{{ $link->getPictureUrl() }}" />
-    <meta name="twitter:url" content="https://grikad.com/redirect/{{ $link->getHash() }}" />
+    <meta name="twitter:image" content="{{ route("image", ["hash" => $link->getHash()]) }}" />
+    <meta name="twitter:url" content="{{ route("redirect", ["hash" => $link->getHash()]) }}" />
 
-    <link rel="canonical" href="https://grikad.com/redirect/{{ $link->getHash() }}" />
-    <link rel="image_src" href="{{ $link->getPictureUrl() }}" />
+    <link rel="canonical" href="{{ route("redirect", ["hash" => $link->getHash()]) }}" />
+    <link rel="image_src" href="{{ route("image", ["hash" => $link->getHash()]) }}" />
     <meta name="title" content="&nbsp;" />
     <meta name="medium" content="image" />
     <meta property="og:title" content="{{ $link->getHeader() }}"/>
-    <meta property="og:url" content="https://grikad.com/redirect/{{ $link->getHash() }}" />
-    <meta property="og:image" content="{{ $link->getPictureUrl() }}"/>
+    <meta property="og:url" content="{{ route("redirect", ["hash" => $link->getHash()]) }}" />
+    <meta property="og:image" content="{{ route("image", ["hash" => $link->getHash()]) }}"/>
     <meta itemprop="name" content="&nbsp;">
-    <meta itemprop="image" content="{{ $link->getPictureUrl() }}">
+    <meta itemprop="image" content="{{ route("image", ["hash" => $link->getHash()]) }}">
     <meta property="og:site_name" content="&nbsp;"/>
     <meta property="og:type" content="website" />
 

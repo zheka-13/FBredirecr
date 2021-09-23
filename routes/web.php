@@ -64,9 +64,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
         $router->post('/links/{link_id}/delete', [
             "as" => "user.links.delete", "uses" => 'LinksController@delete'
         ]);
-        $router->get('/img/{file}', [
-            "as" => "user.links.img", "uses" => 'LinksController@img'
-        ]);
+
     });
 });
 
@@ -76,4 +74,7 @@ $router->get('/logout', [
 
 $router->get('/redirect/{hash}', [
     "as" => "redirect", "uses" => 'RedirectController@redirect'
+]);
+$router->get('/img/{hash}', [
+    "as" => "image", "uses" => 'RedirectController@image'
 ]);

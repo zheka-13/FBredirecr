@@ -25,7 +25,7 @@
                     <input id="header" type="text" class="form-control" name="header" value="{{ $link->getHeader() }}" disabled>
                 </div>
                 <div class="form-group">
-                    <img style='width: 400px' src="{{ $link->getPictureUrl() }}">
+                    <img style='width: 400px' src="{{ route('image', ["hash" => $link->getHash()]) }}">
                 </div>
                 <div class="form-group">
                     <label for="picture" class="col-form-label">Picture</label>

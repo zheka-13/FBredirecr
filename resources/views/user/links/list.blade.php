@@ -26,7 +26,7 @@
                 <td>{{ $link->getSubstrHeader() }}</td>
                 <td>
                     @if ($link->hasPicture())
-                        <span class="badge badge-success">Has picture .{{ $link->getExtension() }}</span>
+                        <span class="badge badge-success">Has picture </span>
                     @else
                         <span class="badge badge-danger">No picture</span>
                     @endif

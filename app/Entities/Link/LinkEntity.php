@@ -35,11 +35,6 @@ class LinkEntity
     private $header = "";
 
     /**
-     * @var string
-     */
-    private $extension = "";
-
-    /**
      * @var bool
      */
     private $has_picture = false;
@@ -103,22 +98,6 @@ class LinkEntity
     }
 
     /**
-     * @return string
-     */
-    public function getPictureUrl(): string
-    {
-        return '/user/img/'.$this->hash.".".$this->extension;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExtension(): string
-    {
-        return $this->extension;
-    }
-
-    /**
      * @param string $name
      * @return LinkEntity
      */
@@ -155,16 +134,6 @@ class LinkEntity
     public function setHeader(string $header): LinkEntity
     {
         $this->header = $header;
-        return $this;
-    }
-
-    /**
-     * @param string $extension
-     * @return LinkEntity
-     */
-    public function setExtension(string $extension): LinkEntity
-    {
-        $this->extension = $extension;
         return $this;
     }
 

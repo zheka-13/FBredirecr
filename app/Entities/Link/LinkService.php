@@ -58,6 +58,16 @@ class LinkService
     }
 
     /**
+     * @param string $hash
+     * @return LinkEntity
+     * @throws LinkNotFoundException
+     */
+    public function getLinkByHash(string $hash): LinkEntity
+    {
+        return $this->linkStorage->getLinkByHash($hash);
+    }
+
+    /**
      * @param LinkEntity $link
      */
     public function updateLink(LinkEntity $link)
@@ -71,10 +81,7 @@ class LinkService
      */
     public function uploadLinkFile(LinkEntity $link, UploadedFile $file)
     {
-        $this->linksFileStorage->deletePicture($link);
-        $link->setExtension($file->getClientOriginalExtension());
         $this->linksFileStorage->storeFile($link, $file);
-        $this->linkStorage->updateExtension($link);
     }
 
     /**
