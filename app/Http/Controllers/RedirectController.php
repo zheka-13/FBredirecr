@@ -7,6 +7,7 @@ use App\Entities\Link\LinkService;
 use App\Entities\Link\LinksFileStorage;
 use App\Entities\Link\LinkStorage;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Http\Response;
 
 class RedirectController extends Controller
 {
@@ -23,13 +24,15 @@ class RedirectController extends Controller
      * @param LinkService $linkService
      * @param LinksFileStorage $linksFileStorage
      * @param string $hash
-     * @return string
-     * @throws LinkNotFoundException
+     * @return Response
      * @throws FileNotFoundException
+     * @throws LinkNotFoundException
      */
-    public function image(LinkService $linkService, LinksFileStorage $linksFileStorage, string $hash): string
+    public function image(LinkService $linkService, LinksFileStorage $linksFileStorage, string $hash): Response
     {
         $link = $linkService->getLinkByHash($hash);
-        return $linksFileStorage->image($link);
+        return new Response($linksFileStorage->image($link), 200, [
+            "Content-Type" => "image/jpeg"
+        ]);
     }
 }
