@@ -29,6 +29,7 @@ class LinkStorage
     {
         $data = $this->db->table("links")
             ->where("user_id", "=", $user_id)
+            ->orderBy("id", 'desc')
             ->get();
         $links = [];
         foreach ($data as $row){
