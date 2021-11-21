@@ -25,7 +25,7 @@ $app = new Laravel\Lumen\Application(
 
 // $app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +47,13 @@ $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
+$app->singleton(Illuminate\Session\SessionManager::class, function () use ($app) {
+    return $app->loadComponent('session', Illuminate\Session\SessionServiceProvider::class, 'session');
+});
 
+$app->singleton('session.store', function () use ($app) {
+    return $app->loadComponent('session', Illuminate\Session\SessionServiceProvider::class, 'session.store');
+});
 /*
 |--------------------------------------------------------------------------
 | Register Config Files
@@ -62,6 +68,7 @@ $app->singleton(
 $app->configure('app');
 $app->configure('filesystems');
 $app->configure('database');
+$app->configure('session');
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -81,7 +88,9 @@ $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'admin' => App\Http\Middleware\AdminMiddleware::class,
 ]);
-
+$app->middleware([
+    \Illuminate\Session\Middleware\StartSession::class,
+]);
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers

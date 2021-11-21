@@ -7,7 +7,6 @@
                         <a href="{{ route("admin.users") }}" class="list-group-item list-group-item-action">Users</a>
                     @endif
                     <a href="{{ route("user.links") }}" class="list-group-item list-group-item-action">My Links</a>
-                    <a href="/" class="list-group-item list-group-item-action">My Profile</a>
                 </div>
             </div>
         </div>

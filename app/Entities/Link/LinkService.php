@@ -39,6 +39,18 @@ class LinkService
     }
 
     /**
+     * @return LinkEntity[][]
+     */
+    public function getLinksWithPaginator(int $user_id): array
+    {
+        $links = $this->linkStorage->getLinksWithPaginator($user_id);
+        foreach ($links['links'] as $link){
+            $link->setHasPicture($this->linksFileStorage->pictureExists($link));
+        }
+        return  $links;
+    }
+
+    /**
      * @param LinkEntity $link
      */
     public function storeLink(LinkEntity $link)

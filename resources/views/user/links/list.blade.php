@@ -6,6 +6,9 @@
 
 @section('content')
     <p style="margin: 10px"><a href="{{ route("user.links.add") }}" class="btn btn-success">Add Link</a></p>
+    <div style="padding: 10px">
+        {{ $links['data']->links() }}
+    </div>
     <table style="margin: 10px" class="table table-bordered table-striped">
         <thead>
         <tr>
@@ -18,7 +21,7 @@
         </thead>
         <tbody>
 
-        @foreach ($links as $link)
+        @foreach ($links['links'] as $link)
             <tr>
                 <td><a href="{{ route("user.links.edit", ["link_id" => $link->getId()]) }}">{{ empty($link->getName()) ? 'noname' : $link->getName() }}</a></td>
                 <td><a href="{{ $link->getLink() }}" target="_blank">{{ $link->getLinkName() }}</a></td>
@@ -37,6 +40,9 @@
 
         </tbody>
     </table>
+    <div style="padding: 10px">
+        {{ $links['data']->links() }}
+    </div>
 @endsection
 
 

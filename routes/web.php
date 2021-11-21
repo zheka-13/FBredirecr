@@ -16,8 +16,10 @@
 use Laravel\Lumen\Routing\Router;
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
-    $router->get('/', 'HomeController@home');
 
+    $router->get('/home', [
+        "as" => "home", "uses" => 'HomeController@home'
+    ]);
     $router->group(['middleware' => 'admin', 'namespace' => 'Admin', 'prefix' => 'admin'], function () use ($router){
         $router->get('/users', [
             "as" => "admin.users", "uses" => 'UsersController@index'
@@ -68,6 +70,11 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     });
 });
 
+$router->get('/', [
+    "as" => "welcome", "uses" => 'HomeController@welcome'
+]);
+
+
 $router->get('/logout', [
     "as" => "logout", "uses" => 'HomeController@logout'
 ]);
@@ -75,6 +82,7 @@ $router->get('/logout', [
 $router->get('/redirect/{hash}', [
     "as" => "redirect", "uses" => 'RedirectController@redirect'
 ]);
+
 $router->get('/img/{hash}', [
     "as" => "image", "uses" => 'RedirectController@image'
 ]);

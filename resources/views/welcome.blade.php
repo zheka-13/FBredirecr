@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon"  href="/favicon.ico">
-    <title>FB Redirect - {{ $title }}</title>
+    <title>zheka13.net.ua - {{ $title }}</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -45,23 +45,31 @@
     </style>
 </head>
 <body>
-
-<div class="layout">
-    @include("layout.header")
-    <div class="wrapper">
-        @include("layout.sidebar")
-        @include("layout.main")
-    </div>
-    @include("layout.footer")
+<div style="text-align: center;">
+    <h2>zheka13.net.ua</h2>
+    <h2>Eheu fugaces! O tempora, o mores</h2>
 </div>
-
+<div style="padding: 10px">
+    <table style="border :1px solid black;">
+        <tr style="border :1px solid black;">
+            <td style="padding: 10px">
+                {{ __("Facebook Clickable Image with redirect service") }}
+            </td>
+            <td style="padding: 10px">
+                <a href="{{ route("home") }}">open</a>
+            </td>
+        </tr>
+    </table>
+</div>
 
 <script src="/js/vue.min.js"></script>
 <script src="/js/jquery-3.5.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="/js/app.js"></script>
 
 
 @stack('scripts')
 </body>
 </html>
+
+
 

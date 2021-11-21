@@ -9,6 +9,7 @@ use App\Entities\Link\LinksFileStorage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -32,7 +33,8 @@ class LinksController extends Controller
      */
     public function index(): View
     {
-        $links = $this->linkService->getLinks(app('auth')->user()->id);
+        Paginator::useBootstrap();
+        $links = $this->linkService->getLinksWithPaginator(app('auth')->user()->id);
         return view('user.links.list', ['title' => 'User Links', "links" => $links]);
     }
 

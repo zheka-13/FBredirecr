@@ -22,6 +22,15 @@ class HomeController extends Controller
     {
         return view('home', ['title' => 'Home']);
     }
+    public function login()
+    {
+        return view('login', ['title' => 'Login']);
+    }
+
+    public function welcome()
+    {
+        return view('welcome', ['title' => 'Welcome']);
+    }
 
     public function logout()
     {
