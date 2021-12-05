@@ -108,4 +108,9 @@ class UserService
         $this->userStorage->delete($user_id);
         event(new UserDeletedEvent($user));
     }
+
+    public function setUserLang(int $user_id, string $lang)
+    {
+        $this->userStorage->updateUserLang($user_id, $lang);
+    }
 }

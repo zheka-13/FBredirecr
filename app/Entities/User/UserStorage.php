@@ -104,6 +104,20 @@ class UserStorage
 
     /**
      * @param int $user_id
+     * @param string $lang
+     */
+    public function updateUserLang(int $user_id, string $lang)
+    {
+        $this->db
+            ->table("users")
+            ->where("id", "=", $user_id)
+            ->update([
+                'lang' => $lang
+            ]);
+    }
+
+    /**
+     * @param int $user_id
      */
     public function delete(int $user_id)
     {
@@ -125,6 +139,7 @@ class UserStorage
             ->setId($row->id)
             ->setName($row->name)
             ->setPassword($row->password)
+            ->setLang($row->lang)
             ->setIsAdmin((bool)$row->is_admin);
     }
 

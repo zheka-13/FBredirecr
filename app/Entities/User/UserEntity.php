@@ -23,6 +23,10 @@ class UserEntity
      */
     private $email = "";
     /**
+     * @var string
+     */
+    private $lang = "en";
+    /**
      * @var bool
      */
     private $is_admin = false;
@@ -122,6 +126,26 @@ class UserEntity
     }
 
     /**
+     * @return string
+     */
+    public function getLang(): string
+    {
+        return $this->lang;
+    }
+
+    /**
+     * @param string|null $lang
+     * @return UserEntity
+     */
+    public function setLang(?string $lang): UserEntity
+    {
+        if (!empty($lang)) {
+            $this->lang = $lang;
+        }
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function asArray(): array
@@ -130,7 +154,8 @@ class UserEntity
             "id" => $this->id,
             "name" => $this->name,
             "email" => $this->email,
-            "is_admin" => $this->is_admin
+            "is_admin" => $this->is_admin,
+            "lang" => $this->lang
         ];
     }
 

@@ -46,17 +46,19 @@
 </head>
 <body>
 <div style="text-align: center;">
-    <h2>zheka13.net.ua</h2>
+    <h2>zheka13.net.ua services</h2>
     <h2>Eheu fugaces! O tempora, o mores</h2>
 </div>
 <div style="padding: 10px">
     <table style="border :1px solid black;">
         <tr style="border :1px solid black;">
             <td style="padding: 10px">
-                {{ __("Facebook Clickable Image with redirect service") }}
+                {{ __("Facebook Clickable Image with redirect") }}<br>
+                Кликабельные картинки для Facebook
             </td>
             <td style="padding: 10px">
-                <a href="{{ route("home") }}">open</a>
+                <a href="{{ route("home") }}">{{ __("here") }}</a> <br>
+                <a href="{{ route("home") }}">{{ __("тут") }}</a>
             </td>
         </tr>
     </table>

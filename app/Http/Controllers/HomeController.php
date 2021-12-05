@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Entities\User\Exceptions\UserEntityException;
 use App\Entities\User\UserService;
+use App\Enums\LanguagesEnum;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

@@ -10,5 +10,12 @@
                 </div>
             </div>
         </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col">
+                {{ __("Choose your language") }}:<br>
+                <a title="{{ __("English") }}" href="{{ request()->fullUrlWithQuery(["lang"=>'en']) }}"><img src="/img/flag_en.png"></a>
+                <a title="{{ __("Russian") }}" href="{{ request()->fullUrlWithQuery(["lang"=>'ru']) }}"><img src="/img/flag_ru.png"></a>
+            </div>
+        </div>
     </div>
 </aside>
