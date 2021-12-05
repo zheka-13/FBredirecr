@@ -26,22 +26,23 @@ class UserService
     /**
      * @param string $email
      * @param string $password
-     * @return User|null
+     * @return bool
      * @throws UserEntityException
      */
-    public function login(string $email, string $password): ?User
+    public function login(string $email, string $password): bool
     {
         try {
             $user = $this->userStorage->getUserByEmail($email);
         }
         catch (UserNotFoundException $e) {
-            return null;
+            return false;
         }
         if (!empty($password) && password_verify($password, $user->getPassword())) {
-            return new User($user->asArray());
+            app('session')->put("user_id", $user->getId());
+            return true;
 
         }
-        return null;
+        return false;
     }
 
     /**
@@ -62,6 +63,18 @@ class UserService
     public function getUser(int $user_id): UserEntity
     {
         return $this->userStorage->getUser($user_id);
+    }
+
+    /**
+     * @param int $user_id
+     * @return User
+     * @throws UserEntityException
+     * @throws UserNotFoundException
+     */
+    public function getUserModel(int $user_id): User
+    {
+        $user = $this->getUser($user_id);
+        return new User($user->asArray());
     }
 
     /**

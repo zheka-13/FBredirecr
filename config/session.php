@@ -98,8 +98,8 @@ return [
     |
     */
 
-    //    'store' => env('SESSION_STORE', null),
-    'store' => "redis:session",
+    'store' => env('SESSION_STORE', null),
+    //'store' => "redis:session",
 
     /*
     |--------------------------------------------------------------------------

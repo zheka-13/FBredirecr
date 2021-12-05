@@ -71,9 +71,16 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 });
 
 $router->get('/', [
-    "as" => "welcome", "uses" => 'HomeController@welcome'
+    "as" => "root", "uses" => 'RootController@root'
 ]);
 
+$router->get('/login', [
+    "as" => "login", "uses" => 'HomeController@login'
+]);
+
+$router->post('/login', [
+    "as" => "do_login", "uses" => 'HomeController@do_login'
+]);
 
 $router->get('/logout', [
     "as" => "logout", "uses" => 'HomeController@logout'

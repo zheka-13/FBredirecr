@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -38,8 +39,7 @@ class Authenticate
     public function handle(Request $request, Closure $next, ?string $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
-            $headers = array('WWW-Authenticate' => 'Basic');
-            return new Response('Unauthorized', 401, $headers);
+            return new RedirectResponse("/login");
         }
 
         return $next($request);

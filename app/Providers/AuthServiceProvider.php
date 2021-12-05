@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Entities\User\UserService;
 use Illuminate\Support\ServiceProvider;
+use Throwable;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,10 +31,17 @@ class AuthServiceProvider extends ServiceProvider
         // should return either a User instance or null. You're free to obtain
         // the User instance via an API token or any other method necessary.
         $this->app['auth']->viaRequest('api', function ($request) use ($userService) {
-            if (!empty($request->getUser()) && !empty($request->getPassword())) {
-               return $userService->login($request->getUser(), $request->getPassword());
+
+            $user_id = $this->app['session']->get("user_id");
+            if (empty($user_id)){
+                return null;
             }
-            return null;
+            try {
+                return $userService->getUserModel($user_id);
+            }
+            catch (Throwable $e){
+                return null;
+            }
         });
     }
 }

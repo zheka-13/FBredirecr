@@ -1,4 +1,4 @@
-@if (!empty($errors))
+@if (!empty($errors) && is_array($errors))
     <div style='margin-top: 10px' class="alert alert-danger" role="alert">
         @foreach ($errors as $field => $field_errors)
             @foreach ($field_errors as $error)
