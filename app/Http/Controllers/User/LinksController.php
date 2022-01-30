@@ -35,12 +35,12 @@ class LinksController extends Controller
     {
         Paginator::useBootstrap();
         $links = $this->linkService->getLinksWithPaginator(app('auth')->user()->id);
-        return view('user.links.list', ['title' => 'User Links', "links" => $links]);
+        return view('user.links.list', ['title' => __('User Links'), "links" => $links]);
     }
 
     public function create(): View
     {
-        return view('user.links.create', ['title' => 'Create Link']);
+        return view('user.links.create', ['title' => __('Create Link')]);
     }
 
     /**
@@ -55,7 +55,7 @@ class LinksController extends Controller
             ]);
         } catch (ValidationException $e) {
             $errors = json_decode($e->getResponse()->getContent(), true);
-            return view('user.links.create', ['title' => 'Create Link'])->with("errors", $errors);
+            return view('user.links.create', ['title' => __('Create Link')])->with("errors", $errors);
         }
         $link = new LinkEntity(0, $request->user()->id);
         $this->fillLinkEntityFromRequest($link, $request);
@@ -70,31 +70,33 @@ class LinksController extends Controller
      */
     public function store_picture(Request $request, int $link_id)
     {
+        $title = __('Edit Picture');
         $file = $request->file('picture');
 
         try {
             $link = $this->linkService->getLink($link_id, $request->user()->id);
         } catch (LinkNotFoundException $e) {
-            return view('error', ['title' => 'Error', "error" => "Link not found"]);
+            return view('error', ['title' => 'Error', "error" => __("Link not found")]);
         }
         if (empty($file)){
-            return view('user.links.edit_picture', ['title' => 'Edit Picture', "link" => $link]);
+            return view('user.links.edit_picture', ['title' => $title, "link" => $link]);
         }
         if (!in_array($file->getClientOriginalExtension(), LinksFileStorage::ALLOWED_EXTENSIONS)) {
             $errors = [
                 'file' => [
-                    "This is not a picture. Forbidden file type ." . $file->getClientOriginalExtension()
+                    __("This is not a picture. Forbidden file type")." ." . $file->getClientOriginalExtension().". "
+                    .__("Allowed extension are").": ".implode(", ", LinksFileStorage::ALLOWED_EXTENSIONS)
                 ]
             ];
-            return view('user.links.edit_picture', ['title' => 'Edit Picture', "link" => $link, "errors" => $errors]);
+            return view('user.links.edit_picture', ['title' => $title, "link" => $link, "errors" => $errors]);
         }
         if ($file->getSize() > LinksFileStorage::MAX_FILE_SIZE) {
             $errors = [
                 'file' => [
-                    "The size of the picture is more than 1mb"
+                    "The size of the picture is more than". (LinksFileStorage::MAX_FILE_SIZE/1000000). " Mb"
                 ]
             ];
-            return view('user.links.edit_picture', ['title' => 'Edit Picture', "link" => $link, "errors" => $errors]);
+            return view('user.links.edit_picture', ['title' => $title, "link" => $link, "errors" => $errors]);
         }
         $this->linkService->uploadLinkFile($link, $file);
         return redirect(route('user.links.edit_picture', ["link_id" => $link_id]));
@@ -109,9 +111,9 @@ class LinksController extends Controller
     {
         try {
             $link = $this->linkService->getLink($link_id, $request->user()->id);
-            return view('user.links.edit_picture', ['title' => 'Edit Picture', "link" => $link]);
+            return view('user.links.edit_picture', ['title' => __('Edit Picture'), "link" => $link]);
         } catch (LinkNotFoundException $e) {
-            return view('error', ['title' => 'Error', "error" => "Link not found"]);
+            return view('error', ['title' => __('Error'), "error" => __("Link not found")]);
         }
     }
 
@@ -138,9 +140,9 @@ class LinksController extends Controller
     {
         try {
             $link = $this->linkService->getLink($link_id, $request->user()->id);
-            return view('user.links.edit', ['title' => 'Edit', "link" => $link]);
+            return view('user.links.edit', ['title' => __('Edit'), "link" => $link]);
         } catch (LinkNotFoundException $e) {
-            return view('error', ['title' => 'Error', "error" => "Link not found"]);
+            return view('error', ['title' => __('Error'), "error" => __("Link not found")]);
         }
     }
 
@@ -158,7 +160,7 @@ class LinksController extends Controller
             ]);
         } catch (ValidationException $e) {
             $errors = json_decode($e->getResponse()->getContent(), true);
-            return view('user.links.edit', ['title' => 'Edit Link'])->with("errors", $errors);
+            return view('user.links.edit', ['title' => __('Edit Link')])->with("errors", $errors);
         }
         $link = $this->linkService->getLink($link_id, $request->user()->id);
         $this->fillLinkEntityFromRequest($link, $request);

@@ -10,6 +10,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <style>
         .layout {
             overflow: hidden;
@@ -58,10 +59,16 @@
 
 <script src="/js/vue.min.js"></script>
 <script src="/js/jquery-3.5.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-
+<script>
+    $(function() {
+        $(".help-tip").tooltip();
+    });
+</script>
 
 @stack('scripts')
+
 </body>
 </html>
 
