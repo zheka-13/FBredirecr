@@ -28,10 +28,10 @@
             <tr>
                 <td>{{ $link->getId() }}</td>
                 <td><a href="{{ route("user.links.edit", ["link_id" => $link->getId()]) }}">{{ empty($link->getName()) ? __('noname') : $link->getName() }}</a></td>
-                <td><a href="{{ $link->getLink() }}" target="_blank">{{ $link->getLinkName() }}</a></td>
+                <td class="help-tip" title="{{ $link->getLink() }}"><a href="{{ $link->getLink() }}" target="_blank">{{ $link->getLinkName() }}</a></td>
                 <td><a href="{{ $link->getFBLink() }}" target="_blank">{{ __("FB Link") }}</a></td>
                 <td>{{ $link->getHits() }}</td>
-                <td>{{ $link->getSubstrHeader() }}</td>
+                <td class="help-tip" title="{{ $link->getHeader() }}">{{ $link->getSubstrHeader() }}</td>
                 <td>
                     @if ($link->hasPicture())
                         <span class="badge badge-success">{{ __("picture") }}</span>
