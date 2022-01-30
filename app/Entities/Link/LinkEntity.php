@@ -40,6 +40,11 @@ class LinkEntity
     private $has_picture = false;
 
     /**
+     * @var int
+     */
+    private $hits = 0;
+
+    /**
      * @param int $id
      * @param int $user_id
      */
@@ -177,6 +182,24 @@ class LinkEntity
     public function hasPicture():bool
     {
         return $this->has_picture;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHits(): int
+    {
+        return $this->hits;
+    }
+
+    /**
+     * @param int $hits
+     * @return LinkEntity
+     */
+    public function setHits(int $hits): LinkEntity
+    {
+        $this->hits = $hits;
+        return $this;
     }
 
 }

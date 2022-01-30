@@ -17,6 +17,7 @@ class RedirectController extends Controller
     public function redirect(LinkStorage $linkStorage, string $hash)
     {
         $link = $linkStorage->getLinkByHash($hash);
+        $linkStorage->logRedirect($link);
         return view('fb', ['link' => $link, "host" => env('APP_URL')]);
     }
 

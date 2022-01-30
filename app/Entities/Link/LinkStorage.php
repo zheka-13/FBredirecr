@@ -94,6 +94,25 @@ class LinkStorage
 
     /**
      * @param LinkEntity $link
+     * @return void
+     */
+    public function logRedirect(LinkEntity $link)
+    {
+        $this->db
+            ->table("user_stat")
+            ->insert([
+                "user_id" => $link->getUserId(),
+                "link_id" => $link->getId(),
+                "redirected" => 'now'
+            ]);
+        $this->db
+            ->table("links")
+            ->where("id", "=", $link->getId())
+            ->increment("hits");
+    }
+
+    /**
+     * @param LinkEntity $link
      */
     public function store(LinkEntity $link)
     {
@@ -138,6 +157,7 @@ class LinkStorage
             ->setName($row->name ?? "")
             ->setLink($row->link ?? "")
             ->setHash($row->hash ?? "")
+            ->setHits($row->hits ?? 0)
             ->setHeader($row->header ?? "");
 
     }

@@ -37,6 +37,8 @@
     "The name of the link" : "Название ссылки",
     "The link which will be openned when user clicks on the picture" : "Ссылка которая откроется когда пользователь кликнет по картинке",
     "Generated link to copy and paste into Facebook" : "Сгенерированная ссылка для вставки в Facebook. Для этого кликните по ней правой кнопкой мыши и выберите Копировать адрес ссылки",
-    "The header which will be below the picture" : "Подпись которая будет в посте Фейсбука под картинкой"
+    "The header which will be below the picture" : "Подпись которая будет в посте Фейсбука под картинкой",
+    "How many times people clicked on this link" : "Сколько раз люди перешли по єтой ссылке",
+    "Hits" : "Переходов"
 
 }
