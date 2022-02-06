@@ -8,6 +8,7 @@ use stdClass;
 
 class LinkStorage
 {
+
     /**
      * @var DatabaseManager
      */
@@ -42,11 +43,11 @@ class LinkStorage
      * @param int $user_id
      * @return LinkEntity[][]
      */
-    public function getLinksWithPaginator(int $user_id): array
+    public function getLinksWithPaginator(int $user_id, string $sort_field = "id", string $sort_order = "desc"): array
     {
         $data = $this->db->table("links")
             ->where("user_id", "=", $user_id)
-            ->orderBy("id", 'desc')
+            ->orderBy($sort_field, $sort_order)
             ->paginate(20);
         $links = [];
         foreach ($data as $row){

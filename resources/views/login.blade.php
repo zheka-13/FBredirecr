@@ -13,7 +13,7 @@
     <link href="/css/floating-labels.css" rel="stylesheet">
 </head>
 <body>
-    <form action="{{ route("do_login") }}" method="POST" class="form-signin">
+    <form action="{{ route("login") }}" method="POST" class="form-signin">
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal"><a href="/">Zheka13 Services Login</a></h1>
         </div>

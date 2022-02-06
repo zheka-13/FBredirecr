@@ -17,7 +17,12 @@
             display: flex;
             flex-direction: column;
         }
-
+        .rightme{
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding: 10px;
+        }
         .header {
             height: 60px;
             border-bottom: 1px solid #dcdcdc;
@@ -62,6 +67,26 @@
             </td>
         </tr>
     </table>
+    <!--<div class="rightme">
+        <table>
+            <tr>
+                <td>
+                    Write me and I will connect you<br>
+                    Напишите мне и я вас подключу
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea style="background: antiquewhite;" rows="10" cols="40"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center">
+                    <button type="button" >Send/Отправить</button>
+                </td>
+            </tr>
+        </table>
+    </div>-->
 </div>
 
 <script src="/js/vue.min.js"></script>

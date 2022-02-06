@@ -31,8 +31,11 @@ class LinksController extends Controller
     /**
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
+        if ($request->filled("sort")){
+            $this->linkService->setSorting($request->input('sort'));
+        }
         Paginator::useBootstrap();
         $links = $this->linkService->getLinksWithPaginator(app('auth')->user()->id);
         return view('user.links.list', ['title' => __('User Links'), "links" => $links]);

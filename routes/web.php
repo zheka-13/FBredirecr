@@ -75,15 +75,15 @@ $router->get('/', [
 ]);
 
 $router->get('/login', [
-    "as" => "login", "uses" => 'HomeController@login'
+    "as" => "login_form", "uses" => 'LoginController@show_login_form'
 ]);
 
 $router->post('/login', [
-    "as" => "do_login", "uses" => 'HomeController@do_login'
+    "as" => "login", "uses" => 'LoginController@login'
 ]);
 
 $router->get('/logout', [
-    "as" => "logout", "uses" => 'HomeController@logout'
+    "as" => "logout", "uses" => 'LoginController@logout'
 ]);
 
 $router->get('/redirect/{hash}', [
