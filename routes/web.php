@@ -74,6 +74,10 @@ $router->get('/', [
     "as" => "root", "uses" => 'RootController@root'
 ]);
 
+$router->post('/hash-hmac', [
+    "as" => "hash-hmac", "uses" => 'HashHmacController@hash_hmac'
+]);
+
 $router->get('/login', [
     "as" => "login_form", "uses" => 'LoginController@show_login_form'
 ]);
