@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Services\HashHmacService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -25,10 +26,10 @@ class HashHmacController extends Controller
 
     /**
      * @param Request $request
-     * @return string
+     * @return JsonResponse
      * @throws ValidationException
      */
-    public function hash_hmac(Request $request): string
+    public function hash_hmac(Request $request): JsonResponse
     {
         $this->validate($request, [
             "data" => "filled|required",
@@ -37,7 +38,9 @@ class HashHmacController extends Controller
         $algo = $request->input("algo") ?? "";
         $data = $request->input("data") ?? "";
         $key = $request->input("key") ?? "";
-        return $this->hashHmacService->getHashHmac($algo, $data, $key);
+        return new JsonResponse([
+            "hash" => $this->hashHmacService->getHashHmac($algo, $data, $key)
+        ]);
     }
 
 
